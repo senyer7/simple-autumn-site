@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Осенний сайт</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Unbounded:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Reset и базовые стили */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Шрифты */
+      body {
+        font-family: "Montserrat", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+        position: relative;
+        background: linear-gradient(to bottom, #f9f7f0, #e8f4f8);
+        min-height: 100vh;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Unbounded", serif;
+        font-weight: 700;
+      }
+
+      /* Контейнер */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Анимации */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Листья */
+      .leaves-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1000;
+        overflow: hidden;
+      }
+
+      .leaf {
+        position: absolute;
+        background-image: url("leaves.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 40px;
+        height: 40px;
+        animation: fall linear forwards;
+        top: -100px;
+        opacity: 0.7;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Шапка */
+      .header {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav__logo {
+        font-family: "Unbounded", serif;
+        font-size: 24px;
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav__logo i {
+        color: #e74c3c;
+      }
+
+      .nav__list {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+
+      .nav__link {
+        text-decoration: none;
+        color: #2c3e50;
+        transition: color 0.3s ease;
+        font-weight: 500;
+        position: relative;
+      }
+
+      .nav__link:after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #e74c3c;
+        transition: width 0.3s ease;
+      }
+
+      .nav__link:hover {
+        color: #e74c3c;
+      }
+
+      .nav__link:hover:after {
+        width: 100%;
+      }
+
+      /* Главная секция */
+      .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 120px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+        background-size: 100% 100%;
+      }
+
+      .hero__title {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        animation: fadeInUp 1s ease;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .hero__text {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease 0.2s both;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Карточки */
+      .cards {
+        padding: 100px 0;
+      }
+
+      .cards__title {
+        text-align: center;
+        font-size: 2.8rem;
+        margin-bottom: 60px;
+        color: #2c3e50;
+        position: relative;
+        display: inline-block;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .cards__title:after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, #667eea, #764ba2);
+        border-radius: 2px;
+      }
+
+      .cards__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+      }
+
+      .card__image {
+        height: 200px;
+        background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+      }
+
+      .card__content {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      .card__title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #2c3e50;
+      }
+
+      .card__text {
+        color: #7f8c8d;
+        margin-bottom: 25px;
+        flex-grow: 1;
+        line-height: 1.7;
+      }
+
+      .card__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 25px;
+        background: linear-gradient(to right, #e74c3c, #c0392b);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        align-self: flex-start;
+        font-weight: 500;
+      }
+
+      .card__link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+      }
+
+      /* Подвал */
+      .footer {
+        background: linear-gradient(to right, #2c3e50, #1a2530);
+        color: white;
+        padding: 70px 0 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .footer:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, #667eea, #764ba2, #e74c3c);
+      }
+
+      .footer__content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .footer__section {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .footer__title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .footer__title:after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: #e74c3c;
+        border-radius: 2px;
+      }
+
+      .footer__text {
+        margin-bottom: 15px;
+        line-height: 1.8;
+        opacity: 0.9;
+      }
+
+      .footer__links {
+        list-style: none;
+      }
+
+      .footer__link-item {
+        margin-bottom: 12px;
+      }
+
+      .footer__link {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer__link:hover {
+        color: #e74c3c;
+      }
+
+      .footer__social {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .footer__social-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer__social-link:hover {
+        background: #e74c3c;
+        transform: translateY(-3px);
+      }
+
+      .footer__bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 25px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .footer__copy {
+        opacity: 0.8;
+        font-size: 0.95rem;
+      }
+
+      .footer__author {
+        opacity: 0.8;
+        font-size: 0.95rem;
+      }
+
+      .footer__author-link {
+        color: #e74c3c;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+        font-weight: 600;
+      }
+
+      .footer__author-link:hover {
+        opacity: 0.9;
+        text-decoration: underline;
+      }
+
+      /* Адаптивность */
+      @media (max-width: 768px) {
+        .nav {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .nav__list {
+          gap: 15px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .hero__title {
+          font-size: 2.5rem;
+        }
+
+        .cards__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer__content {
+          flex-direction: column;
+          gap: 30px;
+        }
+      }
+
+      /* Дополнительные стили */
+      .btn-scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(to right, #667eea, #764ba2);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .btn-scroll-top.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .btn-scroll-top:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="leaves-container"></div>
+
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="#" class="nav__logo">
+            <i class="fas fa-leaf"></i>
+            Осенний сайт
+          </a>
+          <ul class="nav__list">
+            <li class="nav__item"><a href="#" class="nav__link">Главная</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">О нас</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">Услуги</a></li>
+            <li class="nav__item">
+              <a href="#" class="nav__link">Портфолио</a>
+            </li>
+            <li class="nav__item">
+              <a href="#" class="nav__link">Контакты</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="hero">
+        <div class="container">
+          <h1 class="hero__title">Добро пожаловать на наш сайт</h1>
+          <p class="hero__text">
+            Наслаждайтесь красотой осени вместе с нами. Мы создаем современные и
+            адаптивные веб-решения с душой и вниманием к деталям.
+          </p>
+        </div>
+      </section>
+
+      <section class="cards">
+        <div class="container">
+          <h2 class="cards__title">Наши услуги</h2>
+          <div class="cards__grid">
+            <article class="card">
+              <div class="card__image">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <div class="card__content">
+                <h3 class="card__title">Веб-разработка</h3>
+                <p class="card__text">
+                  Создание современных и адаптивных веб-сайтов с использованием
+                  передовых технологий. От лендингов до сложных веб-приложений.
+                </p>
+                <a href="#" class="card__link">
+                  Подробнее
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card__image">
+                <i class="fas fa-paint-brush"></i>
+              </div>
+              <div class="card__content">
+                <h3 class="card__title">Дизайн</h3>
+                <p class="card__text">
+                  Красивый и современный дизайн для вашего проекта. Мы создаем
+                  интерфейсы, которые нравятся пользователям и решают
+                  бизнес-задачи.
+                </p>
+                <a href="#" class="card__link">
+                  Подробнее
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card__image">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="card__content">
+                <h3 class="card__title">Маркетинг</h3>
+                <p class="card__text">
+                  Продвижение вашего бизнеса в интернете. Мы помогаем привлечь
+                  целевую аудиторию и увеличить конверсию с помощью
+                  digital-стратегий.
+                </p>
+                <a href="#" class="card__link">
+                  Подробнее
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__content">
+          <div class="footer__section">
+            <h3 class="footer__title">Осенний сайт</h3>
+            <p class="footer__text">
+              Мы создаем красивые и функциональные сайты, которые помогают нашим
+              клиентам развивать бизнес в digital-пространстве.
+            </p>
+            <div class="footer__social">
+              <a href="#" class="footer__social-link">
+                <i class="fab fa-vk"></i>
+              </a>
+              <a href="#" class="footer__social-link">
+                <i class="fab fa-telegram"></i>
+              </a>
+              <a href="#" class="footer__social-link">
+                <i class="fab fa-youtube"></i>
+              </a>
+              <a href="#" class="footer__social-link">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer__section">
+            <h3 class="footer__title">Ссылки</h3>
+            <ul class="footer__links">
+              <li class="footer__link-item">
+                <a href="#" class="footer__link">
+                  <i class="fas fa-chevron-right"></i>
+                  Главная
+                </a>
+              </li>
+              <li class="footer__link-item">
+                <a href="#" class="footer__link">
+                  <i class="fas fa-chevron-right"></i>
+                  О нас
+                </a>
+              </li>
+              <li class="footer__link-item">
+                <a href="#" class="footer__link">
+                  <i class="fas fa-chevron-right"></i>
+                  Услуги
+                </a>
+              </li>
+              <li class="footer__link-item">
+                <a href="#" class="footer__link">
+                  <i class="fas fa-chevron-right"></i>
+                  Портфолио
+                </a>
+              </li>
+              <li class="footer__link-item">
+                <a href="#" class="footer__link">
+                  <i class="fas fa-chevron-right"></i>
+                  Контакты
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer__section">
+            <h3 class="footer__title">Контакты</h3>
+            <p class="footer__text">
+              <i class="fas fa-map-marker-alt"></i>
+              Москва, ул. Примерная, 123
+            </p>
+            <p class="footer__text">
+              <i class="fas fa-phone"></i>
+              +7 (123) 456-78-90
+            </p>
+            <p class="footer__text">
+              <i class="fas fa-envelope"></i>
+              example@mail.com
+            </p>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <p class="footer__copy">© 2025 Осенний сайт. Все права защищены.</p>
+          <p class="footer__author">
+            Разработано:
+            <a href="https://senyer7.ru" class="footer__author-link"
+              >senyer7.ru</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="#" class="btn-scroll-top">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+      // Анимация падающих листьев
+      function createLeaves() {
+        const leavesContainer = document.querySelector(".leaves-container");
+        const numberOfLeaves = 20;
+
+        for (let i = 0; i < numberOfLeaves; i++) {
+          const leaf = document.createElement("div");
+          leaf.classList.add("leaf");
+
+          // Случайные параметры
+          const size = Math.random() * 30 + 20;
+          const posX = Math.random() * 100;
+          const delay = Math.random() * 15;
+          const duration = Math.random() * 10 + 10;
+          const rotation = Math.random() * 360;
+
+          // Применение стилей
+          leaf.style.left = `${posX}vw`;
+          leaf.style.width = `${size}px`;
+          leaf.style.height = `${size}px`;
+          leaf.style.animationDelay = `${delay}s`;
+          leaf.style.animationDuration = `${duration}s`;
+          leaf.style.transform = `rotate(${rotation}deg)`;
+
+          // Удаляем лист после завершения анимации
+          leaf.addEventListener("animationend", function () {
+            leaf.remove();
+            // Создаем новый лист вместо удаленного
+            setTimeout(createLeaf, Math.random() * 2000);
+          });
+
+          leavesContainer.appendChild(leaf);
+        }
+      }
+
+      // Функция для создания одного листа
+      function createLeaf() {
+        const leavesContainer = document.querySelector(".leaves-container");
+        const leaf = document.createElement("div");
+        leaf.classList.add("leaf");
+
+        // Случайные параметры
+        const size = Math.random() * 30 + 20;
+        const posX = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const duration = Math.random() * 10 + 10;
+        const rotation = Math.random() * 360;
+
+        // Применение стилей
+        leaf.style.left = `${posX}vw`;
+        leaf.style.width = `${size}px`;
+        leaf.style.height = `${size}px`;
+        leaf.style.animationDelay = `${delay}s`;
+        leaf.style.animationDuration = `${duration}s`;
+        leaf.style.transform = `rotate(${rotation}deg)`;
+
+        // Удаляем лист после завершения анимации
+        leaf.addEventListener("animationend", function () {
+          leaf.remove();
+          // Создаем новый лист вместо удаленного
+          setTimeout(createLeaf, Math.random() * 2000);
+        });
+
+        leavesContainer.appendChild(leaf);
+      }
+
+      // Кнопка прокрутки наверх
+      function initScrollTopButton() {
+        const scrollButton = document.querySelector(".btn-scroll-top");
+
+        window.addEventListener("scroll", function () {
+          if (window.pageYOffset > 300) {
+            scrollButton.classList.add("active");
+          } else {
+            scrollButton.classList.remove("active");
+          }
+        });
+
+        scrollButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+      }
+
+      // Запуск при загрузке страницы
+      document.addEventListener("DOMContentLoaded", function () {
+        createLeaves();
+        initScrollTopButton();
+
+        // Плавная прокрутка для якорей
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        });
+      });
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.min.js"
+      integrity="sha256-huW7yWl7tNfP7lGk46XE+Sp0nCotjzYodhVKlwaNeco="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
